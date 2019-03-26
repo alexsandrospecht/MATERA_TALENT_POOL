@@ -1,0 +1,26 @@
+[
+  {
+    "_class" : "com.github.specht.pool.model.Employee",
+    "id": "e379ada4-d2cf-4338-b7af-07b977e94486",
+    "firstName": "John",
+    "middleInitial": "A.",
+    "lastName": "Snow",
+    "status": "ACTIVE"
+  },
+  {
+    "_class" : "com.github.specht.pool.model.Employee",
+    "id": "c2a94be9-3bd0-49c2-8160-1749e26877f2",
+    "firstName": "Bander",
+    "middleInitial": "N.",
+    "lastName": "Sadelyn",
+    "status": "ACTIVE"
+  },
+  {
+    "_class" : "com.github.specht.pool.model.Employee",
+    "id": "2c849ddd-6659-42ca-9fff-81ef80e89e69",
+    "firstName": "Dwan",
+    "middleInitial": "A.",
+    "lastName": "Vaele",
+    "status": "INACTIVE"
+  }
+]
