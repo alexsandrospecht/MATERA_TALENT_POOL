@@ -19,18 +19,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository repository;
 
     @Override
-    public Employee findById(String id) {
+    public Employee findById(final String id) {
         return repository.findByIdAndStatus(id, Status.ACTIVE)
                 .orElseThrow(buildNotFoundException(id));
     }
 
     @Override
-    public Page<Employee> findAll(Integer pageNumber, Integer pageSize) {
+    public Page<Employee> findAll(final Integer pageNumber, final Integer pageSize) {
         return repository.findAllByStatus(Status.ACTIVE, PageUtil.buildPage(pageNumber, pageSize));
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(final String id) {
         final Employee employee = repository.findById(id)
                 .orElseThrow(buildNotFoundException(id));
 
@@ -40,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee newEmployee(Employee employee) {
+    public Employee newEmployee(final Employee employee) {
         employee.setId(UUID.randomUUID().toString());
         employee.setStatus(Status.ACTIVE);
 
@@ -48,11 +48,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee updateEmployee(Employee employee) {
+    public Employee updateEmployee(final Employee employee) {
         return repository.save(employee);
     }
 
-    private Supplier buildNotFoundException(String id) {
+    private Supplier<? extends RuntimeException> buildNotFoundException(final String id) {
         return () -> new NotFoundException(String.format("Employee with id %s not found!", id));
     }
 

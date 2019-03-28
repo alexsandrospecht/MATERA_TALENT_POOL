@@ -6,7 +6,6 @@ import com.github.specht.pool.model.request.UpdateEmployeeRequest;
 import com.github.specht.pool.model.response.EmployeeResponse;
 import com.github.specht.pool.model.response.PageableResponse;
 import com.github.specht.pool.service.EmployeeService;
-import com.github.specht.pool.service.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
@@ -25,13 +24,13 @@ public class EmployeeHandler {
     @Autowired
     private EmployeeService service;
 
-    public EmployeeResponse handleGetById(String id) {
+    public EmployeeResponse handleGetById(final String id) {
         final Employee employee = service.findById(id);
 
         return buildResponse(employee);
     }
 
-    public PageableResponse<EmployeeResponse> handleGetAll(Integer pageNumber, Integer pageSize) {
+    public PageableResponse<EmployeeResponse> handleGetAll(final Integer pageNumber, final Integer pageSize) {
 
         final Page<Employee> page = service.findAll(pageNumber, pageSize);
 
@@ -46,27 +45,27 @@ public class EmployeeHandler {
                 .build();
     }
 
-    public void handleDelete(String id) {
+    public void handleDelete(final String id) {
         service.delete(id);
     }
 
-    public EmployeeResponse handleNewEmployee(NewEmployeeRequest request) {
+    public EmployeeResponse handleNewEmployee(final NewEmployeeRequest request) {
         final Employee employee = buildEmployee(request);
         final Employee output = service.newEmployee(employee);
 
         return buildResponse(output);
     }
 
-    public EmployeeResponse handleUpdate(UpdateEmployeeRequest request) {
+    public EmployeeResponse handleUpdate(final String id, final UpdateEmployeeRequest request) {
         final Employee employee = buildEmployee(request);
-        employee.setId(request.getId());
+        employee.setId(id);
         employee.setStatus(request.getStatus());
 
         final Employee output = service.updateEmployee(employee);
         return buildResponse(output);
     }
 
-    private EmployeeResponse buildResponse(Employee employee) {
+    private EmployeeResponse buildResponse(final Employee employee) {
         return EmployeeResponse.builder()
                 .id(employee.getId())
                 .dateOfBirth(employee.getDateOfBirth())
@@ -77,7 +76,7 @@ public class EmployeeHandler {
                 .build();
     }
 
-    private Employee buildEmployee(NewEmployeeRequest request) {
+    private Employee buildEmployee(final NewEmployeeRequest request) {
         return Employee.builder()
                 .dateOfBirth(request.getDateOfBirth())
                 .dateOfEmployment(request.getDateOfEmployment())

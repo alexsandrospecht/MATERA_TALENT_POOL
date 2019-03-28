@@ -14,7 +14,7 @@ public class PageUtil {
 	 *
 	 * @see org.springframework.data.domain.PageRequest
 	 * */
-	public static PageRequest buildPage(Integer pageNumber, Integer pageSize) {
+	public static PageRequest buildPage(final Integer pageNumber, final Integer pageSize) {
 
 		if (pageNumber == null || pageSize == null) {
 			return PageRequest.of(0, Integer.MAX_VALUE);

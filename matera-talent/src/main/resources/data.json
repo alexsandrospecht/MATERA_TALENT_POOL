@@ -5,6 +5,8 @@
     "firstName": "John",
     "middleInitial": "A.",
     "lastName": "Snow",
+    "dateOfBirth": "1991-10-15",
+    "dateOfEmployment" : "2019-02-05",
     "status": "ACTIVE"
   },
   {
@@ -13,6 +15,8 @@
     "firstName": "Bander",
     "middleInitial": "N.",
     "lastName": "Sadelyn",
+    "dateOfBirth": "1999-05-01",
+    "dateOfEmployment" : "2019-01-01",
     "status": "ACTIVE"
   },
   {
@@ -21,6 +25,8 @@
     "firstName": "Dwan",
     "middleInitial": "A.",
     "lastName": "Vaele",
+    "dateOfBirth": "1999-01-22",
+    "dateOfEmployment" : "2015-05-06",
     "status": "INACTIVE"
   }
 ]

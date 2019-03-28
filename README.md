@@ -30,31 +30,31 @@ curl -X POST \
 ### The list of operations provided by the API:
 | Method | URL | Description | 
 | ------ | ------ |  ------ |
-| **GET** | /api/v1/employee/{id} | Retrieve an employee by id |
-| **GET** | /api/v1/employee | Retrieve all employees |
-| **POST** | /api/v1/employee | Create a new employee |
-| **PUT** | /api/v1/employee | Update an existing employee |
-| **DELETE** | /api/v1/employee/{id} | Remove an employee based on the id |
+| **GET** | /api/v1/employees/{id} | Retrieve an employee by id |
+| **GET** | /api/v1/employees | Retrieve all employees |
+| **POST** | /api/v1/employees | Create a new employee |
+| **PUT** | /api/v1/employees/{id} | Update an existing employee based on the id |
+| **DELETE** | /api/v1/employees/{id} | Remove an employee based on the id |
 
 ### Here is one cURL snippet for each endpoint:
-##### **GET** on /api/v1/employee/{id}
+##### **GET** on /api/v1/employees/{id}
 ```bash
 curl -X GET \
-  http://localhost:8080/api/v1/employee/e379ada4-d2cf-4338-b7af-07b977e94486 \
+  http://localhost:8080/api/v1/employees/e379ada4-d2cf-4338-b7af-07b977e94486 \
   -H 'Authorization: bearer 2106ba78-64a4-40b7-99cd-6fbb990e91e0'
 ```
 
-##### **GET** on /api/v1/employee (This api supports pagination)
+##### **GET** on /api/v1/employees (This api supports pagination)
 ```bash
 curl -X GET \
-  http://localhost:8080/api/v1/employee?pageNumber=1&pageSize=1 \
+  http://localhost:8080/api/v1/employees?pageNumber=1&pageSize=1 \
   -H 'Authorization: bearer 2106ba78-64a4-40b7-99cd-6fbb990e91e0'
 ```
 
-##### **POST** on /api/v1/employee  
+##### **POST** on /api/v1/employees  
 ```bash
 curl -X POST \
-  http://localhost:8080/api/v1/employee \
+  http://localhost:8080/api/v1/employees \
   -H 'Authorization: bearer a096eaa6-16bb-48a4-b82a-a2a86453b937' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -66,14 +66,13 @@ curl -X POST \
        }'
 ```
 
-##### **PUT** on /api/v1/employee  
+##### **PUT** on /api/v1/employees/{id}  
 ```bash
 curl -X PUT \
-  http://localhost:8080/api/v1/employee \
+  http://localhost:8080/api/v1/employees/e379ada4-d2cf-4338-b7af-07b977e94486 \
   -H 'Authorization: bearer a096eaa6-16bb-48a4-b82a-a2a86453b937' \
   -H 'Content-Type: application/json' \
   -d '{
-         "id" : "e379ada4-d2cf-4338-b7af-07b977e94486", 
          "firstName" : "First",
          "middleInitial" : "A",
          "lastName" : "Last",
@@ -83,10 +82,10 @@ curl -X PUT \
         }'
 ```
 
-##### **DELETE** on /api/v1/employee/{id}   
+##### **DELETE** on /api/v1/employees/{id}   
 ```bash
 curl -X DELETE \
-  http://localhost:8080/api/v1/employee/e379ada4-d2cf-4338-b7af-07b977e94486 \
+  http://localhost:8080/api/v1/employees/e379ada4-d2cf-4338-b7af-07b977e94486 \
   -H 'Authorization: bearer a096eaa6-16bb-48a4-b82a-a2a86453b937'
 ```
 
@@ -96,7 +95,7 @@ In the folder `matera-talent` run the commands:
 
 To Test, use `mvn test`  
 To Build, use  `mvn clean package` add ` -DskipTests` to avoid the test phase  
-To Run, use: `java -jar ./target/matera-talent-0.0.1-SNAPSHOT.jar`  
+To Run, use: `mvn spring-boot:run` or `java -jar ./target/matera-talent-0.0.1-SNAPSHOT.jar`  
 
 # Postman Collection
 In the `postman-collection` folder you will find a postman collection and environment. This collection contains one request to each API.

@@ -29,19 +29,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  * */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_CLASS)
 public class EmployeeApiIT extends AbstractApiTest {
 
 	@Test
-	public void givenValidNewEmployeeRequestWhenCallPostThenShouldReturnSucess() throws Exception {
+	public void givenValidNewEmployeeRequestWhenCallPostThenShouldReturnCreated() throws Exception {
 
 		final NewEmployeeRequest request = NewEmployeeRequestTestObject.build();
-		final MockHttpServletResponse response = mvc.perform(post("/api/v1/employee")
+		final MockHttpServletResponse response = mvc.perform(post("/api/v1/employees")
 						.content(objectMapper.writeValueAsString(request))
 						.contentType(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
 
-		assertThat(response.getStatus(), equalTo(HttpStatus.OK.value()));
+		assertThat(response.getStatus(), equalTo(HttpStatus.CREATED.value()));
 
 		final EmployeeResponse employee = objectMapper
 				.readValue(response.getContentAsString(), EmployeeResponse.class);
@@ -55,10 +55,10 @@ public class EmployeeApiIT extends AbstractApiTest {
 	}
 
 	@Test
-	public void givenValidUpdateEmployeeRequestWhenCallPutThenShouldReturnSucess() throws Exception {
+	public void givenValidUpdateEmployeeRequestWhenCallPutThenShouldReturnSuccess() throws Exception {
 
 		final UpdateEmployeeRequest request = UpdateEmployeeRequestTestObject.build();
-		final MockHttpServletResponse response = mvc.perform(put("/api/v1/employee")
+		final MockHttpServletResponse response = mvc.perform(put("/api/v1/employees/c2a94be9-3bd0-49c2-8160-1749e26877f2")
 				.content(objectMapper.writeValueAsString(request))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
@@ -68,13 +68,13 @@ public class EmployeeApiIT extends AbstractApiTest {
 		final EmployeeResponse employee = objectMapper
 				.readValue(response.getContentAsString(), EmployeeResponse.class);
 
-		assertThat(employee.getId(), equalTo(UpdateEmployeeRequestTestObject.ID));
+		assertThat(employee.getId(), equalTo("c2a94be9-3bd0-49c2-8160-1749e26877f2"));
 	}
 
 	@Test
 	public void givenInvalidUpdateEmployeeRequestWhenCallPutThenShouldReturnErrorMessages() throws Exception {
 
-		final MockHttpServletResponse response = mvc.perform(put("/api/v1/employee")
+		final MockHttpServletResponse response = mvc.perform(put("/api/v1/employees/c2a94be9-3bd0-49c2-8160-1749e26877f2")
 				.content(objectMapper.writeValueAsString(new UpdateEmployeeRequest()))
 				.contentType(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
@@ -85,12 +85,11 @@ public class EmployeeApiIT extends AbstractApiTest {
 				.readValue(response.getContentAsString(), ErrorResponse.class);
 
 		final List<String> errors = employee.getErrors();
-		assertThat(errors, hasSize(7));
+		assertThat(errors, hasSize(6));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("lastName: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("firstName: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("status: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("middleInitial: must not be null")));
-		assertThat(errors, Matchers.hasItem(Matchers.equalTo("id: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("dateOfBirth: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("firstName: must not be null")));
 		assertThat(errors, Matchers.hasItem(Matchers.equalTo("dateOfEmployment: must not be null")));
@@ -99,7 +98,7 @@ public class EmployeeApiIT extends AbstractApiTest {
 	@Test
 	public void givenEmployeeWhenCallDeleteThenShouldReturnNoContentStatus() throws Exception {
 
-		final MockHttpServletResponse response = mvc.perform(delete("/api/v1/employee/e379ada4-d2cf-4338-b7af-07b977e94486")
+		final MockHttpServletResponse response = mvc.perform(delete("/api/v1/employees/e379ada4-d2cf-4338-b7af-07b977e94486")
 				.contentType(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
 

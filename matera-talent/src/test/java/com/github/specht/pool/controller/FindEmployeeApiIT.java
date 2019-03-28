@@ -28,7 +28,7 @@ public class FindEmployeeApiIT extends AbstractApiTest {
 	@Test
 	public void givenValidIdWhenCallGetOnEmployeeThenShouldReturnValue() throws Exception {
 		final MockHttpServletResponse response = mvc.perform(
-				get("/api/v1/employee/e379ada4-d2cf-4338-b7af-07b977e94486")
+				get("/api/v1/employees/e379ada4-d2cf-4338-b7af-07b977e94486")
 						.accept(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
 
@@ -46,7 +46,7 @@ public class FindEmployeeApiIT extends AbstractApiTest {
 	@Test
 	public void givenInvalidIdWhenCallGetOnEmployeeThenShouldNotReturnValue() throws Exception {
 		final MockHttpServletResponse response = mvc.perform(
-				get("/api/v1/employee/not-valid-id")
+				get("/api/v1/employees/not-valid-id")
 						.accept(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
 
@@ -62,7 +62,7 @@ public class FindEmployeeApiIT extends AbstractApiTest {
 	@Test
 	public void givenCallOnGetAllThenShouldReturnAllEmployeesInDatabase() throws Exception {
 		final MockHttpServletResponse response = mvc.perform(
-				get("/api/v1/employee")
+				get("/api/v1/employees")
 						.accept(MediaType.APPLICATION_JSON))
 				.andReturn().getResponse();
 

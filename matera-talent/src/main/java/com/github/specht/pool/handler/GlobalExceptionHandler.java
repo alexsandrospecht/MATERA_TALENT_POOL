@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ErrorResponse> notFoundException(NotFoundException e) {
+    public ResponseEntity<ErrorResponse> notFoundException(final NotFoundException e) {
         final ErrorResponse errorResponse = ErrorResponse.builder()
                 .errors(Collections.singletonList(e.getMessage()))
                 .build();
@@ -25,7 +25,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> argumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<ErrorResponse> argumentNotValidException(final MethodArgumentNotValidException e) {
         final List<String> errors = e.getBindingResult().getFieldErrors().stream()
                 .map(s -> s.getField() + ": " + s.getDefaultMessage())
                 .collect(Collectors.toList());

@@ -9,9 +9,6 @@ import javax.validation.constraints.NotNull;
 public class UpdateEmployeeRequest extends NewEmployeeRequest {
 
     @NotNull
-    private String id;
-
-    @NotNull
     private Status status;
 
 }
